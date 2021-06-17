@@ -61,8 +61,12 @@ const updateProduct = async (req, res = response) => {
 
     const { id }                 = req.params;
     const { _id, user, ...data } = req.body;
-    data.name                    = req.body.name.toUpperCase();
-    data.user                    = req.user._id;
+
+    if( data.name ){
+        data.name = req.body.name.toUpperCase();
+    }
+    
+    data.user = req.user._id;
 
     const productUpdate = await Products.findByIdAndUpdate( id, data, {new: true} );
 
